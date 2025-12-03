@@ -10,7 +10,7 @@ from langgraph.prebuilt import ToolNode, tools_condition
 
 
 class GraphBuilder:
-    def __init__(self):
+    def __init__(self,model_provider: str = "groq"):
         pass
     def agent_function(self, state:MessagesState):
         "Main agent fucntion"
