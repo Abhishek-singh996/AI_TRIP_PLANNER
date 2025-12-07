@@ -1,17 +1,22 @@
 class Calculator:
     @staticmethod
-    def multiply(a: int, b: int) -> int:
+    def multiply(a, b) -> float:
         """
-        Multiply two integers.
+        Multiply two numbers safely. Handles string, int, and float inputs.
 
         Args:
-            a (int): The first integer.
-            b (int): The second integer.
+            a: The first number (can be int, float, or string).
+            b: The second number (can be int, float, or string).
 
         Returns:
-            int: The product of a and b.
+            float: The product of a and b.
         """
-        return a * b
+        try:
+            a = float(a)
+            b = float(b)
+            return a * b
+        except (ValueError, TypeError) as e:
+            raise ValueError(f"Invalid inputs for multiply: a={a}, b={b}, error={e}")
     
     @staticmethod
     def calculate_total(*x: float) -> float:
