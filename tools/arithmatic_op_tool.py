@@ -5,37 +5,32 @@ from langchain.tools import tool
 from langchain_community.utilities.alpha_vantage import AlphaVantageAPIWrapper
 
 @tool
-def multiply(a: int, b: int) -> int:
+def multiply(a, b) -> float:
     """
-    Multiply two integers.
-
-    Args:
-        a (int): The first integer.
-        b (int): The second integer.
-
-    Returns:
-        int: The product of a and b.
+    Multiply two numbers safely.
     """
-    return a * b
+    try:
+        a = float(a)
+        b = float(b)
+        return a * b
+    except Exception as e:
+        raise ValueError(f"Invalid inputs for multiply: a={a}, b={b}, error={e}")
+
 
 @tool
-def add(a: int, b: int) -> int:
+def add(a, b) -> float:
     """
-    Add two integers.
-
-    Args:
-        a (int): The first integer.
-        b (int): The second integer.
-
-    Returns:
-        int: The sum of a and b.
+    Add two numbers safely.
     """
-    return a + b
+    try:
+        return float(a) + float(b)
+    except Exception as e:
+        raise ValueError(f"Invalid inputs for add: a={a}, b={b}, error={e}")
 
 @tool
-def currency_converter(from_curr: str, to_curr: str, value: float)->float:
+def currency_converter(from_curr: str, to_curr: str, value) -> float:
     os.environ["ALPHAVANTAGE_API_KEY"] = os.getenv('ALPHAVANTAGE_API_KEY')
     alpha_vantage = AlphaVantageAPIWrapper()
     response = alpha_vantage._get_exchange_rate(from_curr, to_curr)
-    exchange_rate = response['Realtime Currency Exchange Rate']['5. Exchange Rate']
-    return value * float(exchange_rate)
+    rate = float(response['Realtime Currency Exchange Rate']['5. Exchange Rate'])
+    return float(value) * rate
