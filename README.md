@@ -4,13 +4,14 @@
 
 <p align="center">
   <!-- Python Version -->
-  <img src="https://img.shields.io/badge/Python-3.12-blue.svg" />
+  <a href="https://www.python.org/downloads/release/python-3120/">
+    <img src="https://img.shields.io/badge/Python-3.12-blue.svg" alt="Python 3.12" />
+  </a>
 
   <!-- License -->
-  <img src="https://img.shields.io/badge/License-MIT-green.svg" />
-
-  <!-- Build Status -->
-  <img src="https://img.shields.io/badge/Build-Passing-brightgreen.svg" />
+  <a href="LICENSE">
+    <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License" />
+  </a>
 </p>
 
 # 🌍 AI Trip Planner
