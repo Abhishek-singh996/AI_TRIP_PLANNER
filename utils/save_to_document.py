@@ -1,8 +1,23 @@
 import os
 import datetime
 
-def save_document(response_text: str, directory: str = "./output"):
-    """Export travel plan to Markdown file with proper formatting"""
+def save_document(response_text: str, directory: str = None):
+    """Export travel plan to Markdown file with proper formatting
+    
+    Args:
+        response_text: The travel plan text to save
+        directory: Directory to save the file. If None, defaults to './output' relative to project root.
+    
+    Returns:
+        str: Full path to the saved file, or None if error occurred
+    """
+    if directory is None:
+        # Default to 'output' directory in the project root
+        project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        directory = os.path.join(project_root, "output")
+    
+    # Convert to absolute path
+    directory = os.path.abspath(directory)
     os.makedirs(directory, exist_ok=True)
     
     
@@ -25,14 +40,15 @@ def save_document(response_text: str, directory: str = "./output"):
         # Write to markdown file with UTF-8 encoding
         # Generate timestamp-based filename
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-        filename = f"{directory}/AI_Trip_Planner_{timestamp}.md"
+        filename = os.path.join(directory, f"AI_Trip_Planner_{timestamp}.md")
 
-        print(filename)
+        print(f"Markdown file will be saved to: {filename}")
 
         with open(filename, 'w', encoding='utf-8') as f:
             f.write(markdown_content)
         
-        print(f"Markdown file saved as: {filename}")
+        print(f"✅ Markdown file saved successfully: {filename}")
+        print(f"📁 Full path: {os.path.abspath(filename)}")
         return filename
         
     except Exception as e:
