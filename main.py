@@ -44,6 +44,14 @@ async def query_travel_agent(query:QueryRequest):
         else:
             final_output = str(output)
         
+        # Save the travel plan to a markdown file
+        try:
+            saved_file = save_document(final_output)
+            if saved_file:
+                print(f"Travel plan saved to: {saved_file}")
+        except Exception as save_error:
+            print(f"Warning: Failed to save document: {save_error}")
+        
         return {"answer": final_output}
     except Exception as e:
         return JSONResponse(status_code=500, content={"error": str(e)})
